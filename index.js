@@ -69,7 +69,8 @@ async function starts() {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Halo @${num.split('@')[0]}\nSelamat datang di group *${mdata.subject}*`
+				teks = `Hello @${num.split('@')[0]}\nBem vindo ao grupo veja as regras pra não ser removido
+ *${mdata.subject}*`
 				let buff = await getBuffer(ppimg)
 				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			} else if (anu.action == 'remove') {
@@ -79,7 +80,7 @@ async function starts() {
 				} catch {
 					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
 				}
-				teks = `Sayonara @${num.split('@')[0]}👋`
+				teks = `JA VAI TARDE @${num.split('@')[0]}👋`
 				let buff = await getBuffer(ppimg)
 				client.sendMessage(mdata.id, buff, MessageType.image, {caption: teks, contextInfo: {"mentionedJid": [num]}})
 			}
@@ -117,18 +118,18 @@ async function starts() {
 			const isCmd = body.startsWith(prefix)
 
 			mess = {
-				wait: '⌛ Sedang di Prosess ⌛',
-				success: '✔️ Berhasil ✔️',
+				wait: '⌛ AGUARDE UM MOMENTO ⌛',
+				success: '✔️ PRONTO ✔️',
 				error: {
-					stick: '❌ Gagal, terjadi kesalahan saat mengkonversi gambar ke sticker ❌',
-					Iv: '❌ Link tidak valid ❌'
+					stick: '❌ Falha, ocorreu um erro ao converter a imagem em um adesivo ❌',
+					Iv: '❌ Link inválido ❌'
 				},
 				only: {
-					group: '❌ Perintah ini hanya bisa di gunakan dalam group! ❌',
-					ownerG: '❌ Perintah ini hanya bisa di gunakan oleh owner group! ❌',
-					ownerB: '❌ Perintah ini hanya bisa di gunakan oleh owner bot! ❌',
-					admin: '❌ Perintah ini hanya bisa di gunakan oleh admin group! ❌',
-					Badmin: '❌ Perintah ini hanya bisa di gunakan ketika bot menjadi admin! ❌'
+					group: '❌ Este comando só pode ser usado em grupos! ❌',
+					ownerG: '❌ Este comando só pode ser usado pelo dono do grupo! ❌',
+					ownerB: '❌ Este comando só pode ser usado pelo proprietário do bot! ❌',
+					admin: '❌ Este comando só pode ser usado por administradores do grupo! ❌',
+					Badmin: '❌ Este comando só pode ser usado quando o bot se torna administrador! ❌'
 				}
 			}
 
@@ -246,7 +247,7 @@ async function starts() {
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`❌ Gagal, pada saat mengkonversi ${tipe} ke stiker`)
+								reply(`❌ Falhou, no momento da conversão ${tipe} ke stiker`)
 							})
 							.on('end', function () {
 								console.log('Finish')
@@ -584,14 +585,14 @@ async function starts() {
                                         }
                                         break
 				case 'toimg':
-					if (!isQuotedSticker) return reply('❌ reply stickernya um ❌')
+					if (!isQuotedSticker) return reply('❌ adesivo de resposta um ❌')
 					reply(mess.wait)
 					encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 					media = await client.downloadAndSaveMediaMessage(encmedia)
 					ran = getRandom('.png')
 					exec(`ffmpeg -i ${media} ${ran}`, (err) => {
 						fs.unlinkSync(media)
-						if (err) return reply('❌ Gagal, pada saat mengkonversi sticker ke gambar ❌')
+						if (err) return reply('❌ Falha ao converter adesivos em imagens❌')
 						buffer = fs.readFileSync(ran)
 						client.sendMessage(from, buffer, image, {quoted: mek, caption: '>//<'})
 						fs.unlinkSync(ran)
@@ -612,11 +613,11 @@ async function starts() {
 						if (isSimi) return reply('Mode simi sudah aktif')
 						samih.push(from)
 						fs.writeFileSync('./src/simi.json', JSON.stringify(samih))
-						reply('Sukses mengaktifkan mode simi di group ini ✔️')
+						reply('Ativar com sucesso o modo simi neste grupo ✔️')
 					} else if (Number(args[0]) === 0) {
 						samih.splice(from, 1)
 						fs.writeFileSync('./src/simi.json', JSON.stringify(samih))
-						reply('Sukes menonaktifkan mode simi di group ini ✔️')
+						reply('Desativando o modo simi com sucesso neste grupo ✔️')
 					} else {
 						reply('1 untuk mengaktifkan, 0 untuk menonaktifkan')
 					}
@@ -629,11 +630,11 @@ async function starts() {
 						if (isWelkom) return reply('Udah aktif um')
 						welkom.push(from)
 						fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
-						reply('Sukses mengaktifkan fitur welcome di group ini ✔️')
+						reply('Ativou com sucesso o recurso de boas-vindas neste grupo ✔️')
 					} else if (Number(args[0]) === 0) {
 						welkom.splice(from, 1)
 						fs.writeFileSync('./src/welkom.json', JSON.stringify(welkom))
-						reply('Sukses menonaktifkan fitur welcome di group ini ✔️')
+						reply('Desativando com sucesso o recurso de boas-vindas neste grupo ✔️')
 					} else {
 						reply('1 untuk mengaktifkan, 0 untuk menonaktifkan')
 					}
